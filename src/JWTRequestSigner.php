@@ -11,6 +11,7 @@ use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Token\Plain;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\InvalidToken;
 use Psr\Http\Message\RequestInterface;
 
@@ -67,10 +68,16 @@ class JWTRequestSigner
 
     public function __construct(string $signingKey, ?int $ttl = null, string $queryParamName = 'token')
     {
+        $signer = new Sha256();
+        $key = new Key($signingKey);
         $this->config = Configuration::forSymmetricSigner(
-            new Sha256(),
-            new Key($signingKey)
+            $signer,
+            $key
         );
+        $this->config->setValidationConstraints(
+            new SignedWith($signer, $key)
+        );
+
         $this->ttl = $ttl;
         $this->queryParamName = $queryParamName;
     }

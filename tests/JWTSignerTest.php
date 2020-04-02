@@ -12,6 +12,25 @@ use PHPUnit\Framework\TestCase;
 
 class JWTSignerTest extends TestCase
 {
+    public function testChangingSigningKeyWillNotValidateSignedRequest()
+    {
+        $signer = new JWTRequestSigner('some-key');
+        $request = new Request('GET', 'http://foo.com');
+
+        $signedRequest = $signer->signRequest($request);
+
+        $this->assertNotEquals($request, $signedRequest);
+        $this->assertEquals($request->getMethod(), $signedRequest->getMethod());
+
+        $signer->validateSignedRequest($signedRequest);
+
+        $signerWithDifferentKey = new JWTRequestSigner('some-key2');
+
+        $this->expectException(InvalidTokenException::class);
+        $this->expectExceptionMessage(InvalidTokenException::INVALID);
+        $signerWithDifferentKey->validateSignedRequest($signedRequest);
+    }
+
     /**
      * @dataProvider getRequests
      */
