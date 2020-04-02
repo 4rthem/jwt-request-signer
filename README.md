@@ -2,6 +2,8 @@
 
 Sign your URLs with a JWT token to protect access to your resources.
 
+[![Build Status](https://travis-ci.com/4rthem/jwt-request-signer.svg?branch=master)](https://travis-ci.com/4rthem/jwt-request-signer)
+
 ## Installation
 
 ```bash

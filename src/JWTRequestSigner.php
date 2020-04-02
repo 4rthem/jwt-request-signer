@@ -198,7 +198,7 @@ class JWTRequestSigner
                 if (!empty($authority)) {
                     $path = '/' . $path;
                 }
-            } elseif ('/' === $path[1] ?? null) {
+            } elseif (isset($path[1]) && '/' === $path[1]) {
                 if (empty($authority)) {
                     $path = '/' . ltrim($path, '/');
                 }
