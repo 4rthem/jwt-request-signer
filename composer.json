@@ -1,0 +1,36 @@
+{
+  "name": "arthem/jwt-request-signer",
+  "type": "library",
+  "description": "Protect access to your resources with JWT",
+  "keywords": [],
+  "homepage": "https://github.com/4rthem/jwt-request-signer",
+  "license": "MIT",
+  "require": {
+    "php": "^7.1",
+    "lcobucci/jwt": "^4",
+    "guzzlehttp/psr7": "^1.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8",
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit"
+  },
+  "autoload": {
+    "psr-4": {
+      "Arthem\\JWTRequestSigner\\": "src/"
+    },
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Arthem\\JWTRequestSigner\\Tests\\": "tests/"
+    }
+  }
+}
