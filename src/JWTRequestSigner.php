@@ -6,13 +6,13 @@ namespace Arthem\JWTRequestSigner;
 
 use Arthem\JWTRequestSigner\Exception\InvalidTokenException;
 use DateTimeImmutable;
+use GuzzleHttp\Psr7;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Validation\InvalidToken;
 use Psr\Http\Message\RequestInterface;
-use GuzzleHttp\Psr7;
 
 class JWTRequestSigner
 {
@@ -87,7 +87,7 @@ class JWTRequestSigner
         $token = $this->createJWT($parsedRequest);
 
         $parsedRequest['query'] = array_merge($parsedRequest['query'], [
-            $this->queryParamName => (string)$token
+            $this->queryParamName => (string) $token,
         ]);
 
         $parsedRequest['uri'] = $request->getUri()->withQuery(Psr7\build_query($parsedRequest['query']));
@@ -186,21 +186,21 @@ class JWTRequestSigner
         $uri = '';
 
         if (!empty($scheme)) {
-            $uri .= $scheme . ':';
+            $uri .= $scheme.':';
         }
 
         if (!empty($authority)) {
-            $uri .= '//' . $authority;
+            $uri .= '//'.$authority;
         }
 
         if (!empty($path)) {
             if ('/' !== $path[0]) {
                 if (!empty($authority)) {
-                    $path = '/' . $path;
+                    $path = '/'.$path;
                 }
             } elseif (isset($path[1]) && '/' === $path[1]) {
                 if (empty($authority)) {
-                    $path = '/' . ltrim($path, '/');
+                    $path = '/'.ltrim($path, '/');
                 }
             }
 

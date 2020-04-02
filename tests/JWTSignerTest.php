@@ -6,9 +6,9 @@ namespace Arthem\JWTRequestSigner\Tests;
 
 use Arthem\JWTRequestSigner\Exception\InvalidTokenException;
 use Arthem\JWTRequestSigner\JWTRequestSigner;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Psr7;
 
 class JWTSignerTest extends TestCase
 {
@@ -146,9 +146,9 @@ class JWTSignerTest extends TestCase
             [[], []],
 
             [[
-                'X-Foo' => 'bar'
+                'X-Foo' => 'bar',
             ], [
-                'X-Foo' => 'bar'
+                'X-Foo' => 'bar',
             ]],
 
             [[
@@ -164,7 +164,6 @@ class JWTSignerTest extends TestCase
                 'x-Foo' => ['baz', 'bar'],
                 'x-Foo2' => ['baz', 'bar'],
             ]],
-
         ];
     }
 
@@ -174,9 +173,9 @@ class JWTSignerTest extends TestCase
             [[], ['X-Foo' => 'bar']],
 
             [[
-                'X-Foo' => 'bar'
+                'X-Foo' => 'bar',
             ], [
-                'X-Foo' => 'bar2'
+                'X-Foo' => 'bar2',
             ]],
 
             [[
@@ -184,7 +183,6 @@ class JWTSignerTest extends TestCase
             ], [
                 'X-Foo' => ['bar', 'baz'],
             ]],
-
         ];
     }
 
